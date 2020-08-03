@@ -4,9 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShiftaDebandTimer"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+		mc:Ignorable="d"
+        Title="MainWindow" Width="250" Topmost="True" ResizeMode="NoResize" WindowStyle="None" 
+		MouseLeftButtonDown="Window_MouseLeftButtonDown" Background="Transparent" AllowsTransparency="True" SizeToContent="Height">
+	<Window.ContextMenu>
+		<ContextMenu>
+			<MenuItem Header="設定" Click="MenuItem_SettingClick"/>
+			<Separator/>
+			<MenuItem Header="閉じる" Click="MenuItem_CloseClick"/>
+		</ContextMenu>
+	</Window.ContextMenu>
+
+	<Grid>
+		<Rectangle Fill="White" Width="22" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+		<Rectangle Fill="Black" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1"/>
+		<StackPanel>
+			<Grid>
+				<Border BorderThickness="1" BorderBrush="Red"/>
+				<local:OutlineText x:Name="shiftaTextBlok" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Justify" FontSize="100" 
+								   StrokeThickness="1" Stroke="White" Fill="Red" FontFamily="UD Digi Kyokasho N-R">
+					0:00
+				</local:OutlineText>				
+			</Grid>
+			<Grid>
+				<Border BorderThickness="1" BorderBrush="DarkCyan"/>
+				<local:OutlineText x:Name="debandTextBlok" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Justify" FontSize="100" 
+								   StrokeThickness="1" Stroke="White" Fill="DarkCyan" FontFamily="UD Digi Kyokasho N-R">
+					0:00
+				</local:OutlineText>
+			</Grid>
+		</StackPanel>
+	</Grid>
 </Window>
