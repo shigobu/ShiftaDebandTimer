@@ -23,14 +23,14 @@ namespace ShiftaDebandTimer
         /// <summary>
         /// シフタキー
         /// </summary>
-        internal Keys ShiftaKey { get; set; }
+        internal Key ShiftaKey { get; set; }
 
         /// <summary>
         /// デバンドキー
         /// </summary>
-        internal Keys DebandKey { get; set; }
+        internal Key DebandKey { get; set; }
 
-        public SettingWindow(Keys shiftaKey, Keys debandKey)
+        public SettingWindow(Key shiftaKey, Key debandKey)
         {
             InitializeComponent();
 

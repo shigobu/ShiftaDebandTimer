@@ -34,12 +34,12 @@ namespace ShiftaDebandTimer
         /// <summary>
         /// シフタのキー
         /// </summary>
-        private Keys shiftaKey { get; set; } = Keys.D6;
+        private Key ShiftaKey { get; set; } = Key.D6;
 
         /// <summary>
         /// デバンドのキー
         /// </summary>
-        private Keys debandKey { get; set; } = Keys.D7;
+        private Key DebandKey { get; set; } = Key.D7;
 
         public MainWindow()
 		{
@@ -76,12 +76,12 @@ namespace ShiftaDebandTimer
 
 		private void KeyboardHook_KeyboardHooked(object sender, KeyboardHookedEventArgs e)
 		{
-			if (e.KeyCode == shiftaKey && e.UpDown == KeyboardUpDown.Down)
+			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(ShiftaKey) && e.UpDown == KeyboardUpDown.Down)
 			{
 				shiftaTimeSec = 180;
 				shiftaStopwatch.Restart();
 			}
-			if (e.KeyCode == debandKey && e.UpDown == KeyboardUpDown.Down)
+			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(DebandKey) && e.UpDown == KeyboardUpDown.Down)
 			{
 				debandTimeSec = 180;
 				debandStopwatch.Restart();
@@ -100,11 +100,11 @@ namespace ShiftaDebandTimer
 
 		private void MenuItem_SettingClick(object sender, RoutedEventArgs e)
 		{
-            SettingWindow settingWindow = new SettingWindow(shiftaKey, debandKey) { Owner = this };
+            SettingWindow settingWindow = new SettingWindow(ShiftaKey, DebandKey) { Owner = this };
             if (settingWindow.ShowDialog() == true)
             {
-                shiftaKey = settingWindow.ShiftaKey;
-                debandKey = settingWindow.DebandKey;
+                ShiftaKey = settingWindow.ShiftaKey;
+                DebandKey = settingWindow.DebandKey;
             }
 		}
 	}

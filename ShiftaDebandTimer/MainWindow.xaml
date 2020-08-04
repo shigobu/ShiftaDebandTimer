@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ShiftaDebandTimer"
 		mc:Ignorable="d"
         Title="MainWindow" Width="250" Topmost="True" ResizeMode="NoResize" WindowStyle="None" 
-		MouseLeftButtonDown="Window_MouseLeftButtonDown" Background="Transparent" AllowsTransparency="True" SizeToContent="Height">
+		MouseLeftButtonDown="Window_MouseLeftButtonDown" Background="Transparent" AllowsTransparency="True" SizeToContent="Height" WindowStartupLocation="CenterScreen">
 	<Window.ContextMenu>
 		<ContextMenu>
 			<MenuItem Header="設定" Click="MenuItem_SettingClick"/>
