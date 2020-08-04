@@ -9,14 +9,14 @@
     <StackPanel Margin="5">
         <TextBlock Text="シフタキー設定" Margin="3, 3, 3, 0"/>
         <DockPanel>
-            <Button x:Name="shiftaKeyButton" Margin="3" DockPanel.Dock="Right">
+            <Button x:Name="shiftaKeyButton" Margin="3" DockPanel.Dock="Right" Click="ShiftaKeyButton_Click">
                 設定
             </Button>            
             <TextBox x:Name="shiftaKeyText" IsReadOnly="True" Margin="3"/>
         </DockPanel>
         <TextBlock Text="デバンドキー設定" Margin="3, 3, 3, 0"/>
         <DockPanel>
-            <Button x:Name="debandKeyButton" Margin="3" DockPanel.Dock="Right">
+            <Button x:Name="debandKeyButton" Margin="3" DockPanel.Dock="Right" Click="DebandKeyButton_Click">
                 設定
             </Button>
             <TextBox x:Name="debandKeyText" IsReadOnly="True" Margin="3"/>

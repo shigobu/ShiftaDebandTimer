@@ -56,9 +56,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="KeyValueGetWindow.xaml.cs">
+      <DependentUpon>KeyValueGetWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="KeyValueGetWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

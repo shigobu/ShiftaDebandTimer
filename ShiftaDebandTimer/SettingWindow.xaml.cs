@@ -20,15 +20,45 @@ namespace ShiftaDebandTimer
     /// </summary>
     public partial class SettingWindow : Window
     {
-        /// <summary>
-        /// シフタキー
-        /// </summary>
-        internal Key ShiftaKey { get; set; }
+		internal Key shiftaKey;
+		/// <summary>
+		/// シフタキー
+		/// </summary>
+		internal Key ShiftaKey
+		{
+			get
+			{
+				return shiftaKey;
+			}
+			set
+			{
+				if (shiftaKey != value)
+				{
+					shiftaKey = value;
+					shiftaKeyText.Text = shiftaKey.ToString();
+				}
+			}
+		}
 
-        /// <summary>
-        /// デバンドキー
-        /// </summary>
-        internal Key DebandKey { get; set; }
+		internal Key debandKey;
+		/// <summary>
+		/// デバンドキー
+		/// </summary>
+		internal Key DebandKey
+		{
+			get
+			{
+				return debandKey;
+			}
+			set
+			{
+				if (debandKey != value)
+				{
+					debandKey = value;
+					debandKeyText.Text = debandKey.ToString();
+				}
+			}
+		}
 
         public SettingWindow(Key shiftaKey, Key debandKey)
         {
@@ -46,5 +76,23 @@ namespace ShiftaDebandTimer
             this.DialogResult = true;
             this.Close();
         }
-    }
+
+		private void ShiftaKeyButton_Click(object sender, RoutedEventArgs e)
+		{
+			KeyValueGetWindow keyValueGetWindow = new KeyValueGetWindow() { Owner = this };
+			if (keyValueGetWindow.ShowDialog() == true)
+			{
+				ShiftaKey = keyValueGetWindow.Key;
+			}
+		}
+
+		private void DebandKeyButton_Click(object sender, RoutedEventArgs e)
+		{
+			KeyValueGetWindow keyValueGetWindow = new KeyValueGetWindow() { Owner = this };
+			if (keyValueGetWindow.ShowDialog() == true)
+			{
+				DebandKey = keyValueGetWindow.Key;
+			}
+		}
+	}
 }
