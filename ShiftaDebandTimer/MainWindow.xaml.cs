@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using HongliangSoft.Utilities.Gui;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace ShiftaDebandTimer
 {
@@ -30,7 +31,17 @@ namespace ShiftaDebandTimer
 		int debandTimeSec = 0;
 		Stopwatch debandStopwatch = new Stopwatch();
 
-		public MainWindow()
+        /// <summary>
+        /// シフタのキー
+        /// </summary>
+        private Keys shiftaKey { get; set; } = Keys.D6;
+
+        /// <summary>
+        /// デバンドのキー
+        /// </summary>
+        private Keys debandKey { get; set; } = Keys.D7;
+
+        public MainWindow()
 		{
 			InitializeComponent();
 
@@ -65,12 +76,12 @@ namespace ShiftaDebandTimer
 
 		private void KeyboardHook_KeyboardHooked(object sender, KeyboardHookedEventArgs e)
 		{
-			if (e.KeyCode == System.Windows.Forms.Keys.D6 && e.UpDown == KeyboardUpDown.Down)
+			if (e.KeyCode == shiftaKey && e.UpDown == KeyboardUpDown.Down)
 			{
 				shiftaTimeSec = 180;
 				shiftaStopwatch.Restart();
 			}
-			if (e.KeyCode == System.Windows.Forms.Keys.D7 && e.UpDown == KeyboardUpDown.Down)
+			if (e.KeyCode == debandKey && e.UpDown == KeyboardUpDown.Down)
 			{
 				debandTimeSec = 180;
 				debandStopwatch.Restart();
@@ -89,7 +100,12 @@ namespace ShiftaDebandTimer
 
 		private void MenuItem_SettingClick(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show("設定画面");
+            SettingWindow settingWindow = new SettingWindow(shiftaKey, debandKey) { Owner = this };
+            if (settingWindow.ShowDialog() == true)
+            {
+                shiftaKey = settingWindow.ShiftaKey;
+                debandKey = settingWindow.DebandKey;
+            }
 		}
 	}
 }
