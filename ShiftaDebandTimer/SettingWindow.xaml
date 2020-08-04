@@ -1,0 +1,34 @@
+﻿<Window x:Class="ShiftaDebandTimer.SettingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShiftaDebandTimer"
+        mc:Ignorable="d"
+        Title="設定" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
+    <StackPanel Margin="5">
+        <TextBlock Text="シフタキー設定" Margin="3, 3, 3, 0"/>
+        <DockPanel>
+            <Button x:Name="shiftaKeyButton" Margin="3" DockPanel.Dock="Right">
+                設定
+            </Button>            
+            <TextBox x:Name="shiftaKeyText" IsReadOnly="True" Margin="3"/>
+        </DockPanel>
+        <TextBlock Text="デバンドキー設定" Margin="3, 3, 3, 0"/>
+        <DockPanel>
+            <Button x:Name="debandKeyButton" Margin="3" DockPanel.Dock="Right">
+                設定
+            </Button>
+            <TextBox x:Name="debandKeyText" IsReadOnly="True" Margin="3"/>
+        </DockPanel>
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Margin="3" Width="60" IsCancel="True">
+                キャンセル
+            </Button>
+            <Button DockPanel.Dock="Right" Margin="3" Width="60" IsDefault="True" Click="OkButton_Click">
+                OK
+            </Button>
+            <Rectangle/>
+        </DockPanel>
+    </StackPanel>
+</Window>
