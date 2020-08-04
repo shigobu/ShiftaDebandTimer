@@ -49,18 +49,16 @@ namespace ShiftaDebandTimer
 			int nokoriSec = shiftaTimeSec - (int)shiftaStopwatch.Elapsed.TotalSeconds;
 			if (nokoriSec < 0)
 			{
-				shiftaTextBlok.Text = "0:00";
+				nokoriSec = 0;
 				shiftaStopwatch.Stop();
-				return;
 			}
 			shiftaTextBlok.Text = $"{nokoriSec / 60}:{nokoriSec % 60:00}";
 
 			nokoriSec = debandTimeSec - (int)debandStopwatch.Elapsed.TotalSeconds;
 			if (nokoriSec < 0)
 			{
-				debandTextBlok.Text = "0:00";
+				nokoriSec = 0;
 				debandStopwatch.Stop();
-				return;
 			}
 			debandTextBlok.Text = $"{nokoriSec / 60}:{nokoriSec % 60:00}";
 		}
