@@ -11,11 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
 using System.Windows.Threading;
 using HongliangSoft.Utilities.Gui;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Reflection;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace ShiftaDebandTimer
 {
@@ -32,14 +35,27 @@ namespace ShiftaDebandTimer
 		Stopwatch debandStopwatch = new Stopwatch();
 
         /// <summary>
-        /// シフタのキー
+        /// 設定ファイル名
         /// </summary>
-        private Key ShiftaKey { get; set; } = Key.D6;
+        private const string ConfigurationFileName = "configuration";
 
         /// <summary>
-        /// デバンドのキー
+        /// 設定ファイル拡張子
         /// </summary>
-        private Key DebandKey { get; set; } = Key.D7;
+        private const string ConfigurationFileExt = ".xml";
+
+        private string ConfigurationFilePath
+        {
+            get
+            {
+                Assembly assembly = Assembly.GetEntryAssembly();
+                string assemblyPath = assembly.Location;
+                string assemblyDir = Path.GetDirectoryName(assemblyPath);
+                return Path.Combine(assemblyDir, ConfigurationFileName + ConfigurationFileExt);
+            }
+        }
+
+        private Documents Documents { get; set; }
 
         public MainWindow()
 		{
@@ -53,7 +69,23 @@ namespace ShiftaDebandTimer
 			dispatcherTimer.Interval = new TimeSpan(100);
 			dispatcherTimer.Tick += DispatcherTimer_Tick;
 			dispatcherTimer.Start();
-		}
+
+            //Documents作成
+            Documents = new Documents();
+
+            //XmlSerializerオブジェクトを作成
+            //オブジェクトの型を指定する
+            XmlSerializer serializer = new XmlSerializer(typeof(Documents));
+            //読み込むファイルを開く
+            if (File.Exists(ConfigurationFilePath))
+            {
+                using (StreamReader streamReader = new StreamReader(ConfigurationFilePath, new UTF8Encoding(false)))
+                {
+                    //XMLファイルから読み込み、逆シリアル化する
+                    Documents = (Documents)serializer.Deserialize(streamReader);
+                }
+            }
+        }
 
 		private void DispatcherTimer_Tick(object sender, EventArgs e)
 		{
@@ -76,12 +108,12 @@ namespace ShiftaDebandTimer
 
 		private void KeyboardHook_KeyboardHooked(object sender, KeyboardHookedEventArgs e)
 		{
-			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(ShiftaKey) && e.UpDown == KeyboardUpDown.Down)
+			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(Documents.ShiftaKey) && e.UpDown == KeyboardUpDown.Down)
 			{
 				shiftaTimeSec = 180;
 				shiftaStopwatch.Restart();
 			}
-			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(DebandKey) && e.UpDown == KeyboardUpDown.Down)
+			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(Documents.DebandKey) && e.UpDown == KeyboardUpDown.Down)
 			{
 				debandTimeSec = 180;
 				debandStopwatch.Restart();
@@ -100,12 +132,25 @@ namespace ShiftaDebandTimer
 
 		private void MenuItem_SettingClick(object sender, RoutedEventArgs e)
 		{
-            SettingWindow settingWindow = new SettingWindow(ShiftaKey, DebandKey) { Owner = this };
+            SettingWindow settingWindow = new SettingWindow(Documents.ShiftaKey, Documents.DebandKey) { Owner = this };
             if (settingWindow.ShowDialog() == true)
             {
-                ShiftaKey = settingWindow.ShiftaKey;
-                DebandKey = settingWindow.DebandKey;
+                Documents.ShiftaKey = settingWindow.ShiftaKey;
+                Documents.DebandKey = settingWindow.DebandKey;
             }
 		}
-	}
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            // XmlSerializerオブジェクトを作成
+            //オブジェクトの型を指定する
+            XmlSerializer serializer = new XmlSerializer(typeof(Documents));
+            //書き込むファイルを開く（UTF-8 BOM無し）
+            using (StreamWriter streamWriter = new System.IO.StreamWriter(ConfigurationFilePath, false, new UTF8Encoding(false)))
+            {
+                //シリアル化し、XMLファイルに保存する
+                serializer.Serialize(streamWriter, Documents);
+            }
+        }
+    }
 }
