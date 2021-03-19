@@ -21,6 +21,8 @@
             </Button>
             <TextBox x:Name="debandKeyText" IsReadOnly="True" Margin="3"/>
         </DockPanel>
+        <TextBlock Text="カウントダウン時間(秒)" Margin="3, 3, 3, 0"/>
+        <TextBox x:Name="countDownTimeTextBox" Margin="3"/>
         <DockPanel>
             <Button DockPanel.Dock="Right" Margin="3" Width="60" IsCancel="True">
                 キャンセル

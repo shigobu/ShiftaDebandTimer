@@ -20,7 +20,7 @@ namespace ShiftaDebandTimer
     /// </summary>
     public partial class SettingWindow : Window
     {
-		internal Key shiftaKey;
+		private Key shiftaKey;
 		/// <summary>
 		/// シフタキー
 		/// </summary>
@@ -40,7 +40,7 @@ namespace ShiftaDebandTimer
 			}
 		}
 
-		internal Key debandKey;
+        private Key debandKey;
 		/// <summary>
 		/// デバンドキー
 		/// </summary>
@@ -60,15 +60,29 @@ namespace ShiftaDebandTimer
 			}
 		}
 
-        public SettingWindow(Key shiftaKey, Key debandKey)
+        /// <summary>
+        /// カウントダウン時間(秒)
+        /// </summary>
+        internal int CountDownSec
+        {
+            get
+            {
+                int.TryParse(countDownTimeTextBox.Text, out int temp);
+                return temp;
+            }
+            set
+            {
+                countDownTimeTextBox.Text = value.ToString();
+            }
+        }
+
+        public SettingWindow(Key shiftaKey, Key debandKey, int countDownSec)
         {
             InitializeComponent();
 
             ShiftaKey = shiftaKey;
             DebandKey = debandKey;
-
-            shiftaKeyText.Text = ShiftaKey.ToString();
-            debandKeyText.Text = DebandKey.ToString();
+            CountDownSec = countDownSec;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

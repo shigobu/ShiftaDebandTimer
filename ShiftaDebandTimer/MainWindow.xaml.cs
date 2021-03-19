@@ -34,6 +34,8 @@ namespace ShiftaDebandTimer
 		int debandTimeSec = 0;
 		Stopwatch debandStopwatch = new Stopwatch();
 
+        int CountDownTime { get; set; } = 180;
+
         /// <summary>
         /// 設定ファイル名
         /// </summary>
@@ -110,12 +112,12 @@ namespace ShiftaDebandTimer
 		{
 			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(Documents.ShiftaKey) && e.UpDown == KeyboardUpDown.Down)
 			{
-				shiftaTimeSec = 180;
+				shiftaTimeSec = CountDownTime;
 				shiftaStopwatch.Restart();
 			}
 			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(Documents.DebandKey) && e.UpDown == KeyboardUpDown.Down)
 			{
-				debandTimeSec = 180;
+				debandTimeSec = CountDownTime;
 				debandStopwatch.Restart();
 			}
 		}
@@ -132,11 +134,12 @@ namespace ShiftaDebandTimer
 
 		private void MenuItem_SettingClick(object sender, RoutedEventArgs e)
 		{
-            SettingWindow settingWindow = new SettingWindow(Documents.ShiftaKey, Documents.DebandKey) { Owner = this };
+            SettingWindow settingWindow = new SettingWindow(Documents.ShiftaKey, Documents.DebandKey, CountDownTime) { Owner = this };
             if (settingWindow.ShowDialog() == true)
             {
                 Documents.ShiftaKey = settingWindow.ShiftaKey;
                 Documents.DebandKey = settingWindow.DebandKey;
+                CountDownTime = settingWindow.CountDownSec;
             }
 		}
 
