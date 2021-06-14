@@ -1,31 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-//using System.Windows.Shapes;
 using System.Windows.Threading;
 using HongliangSoft.Utilities.Gui;
 using System.Diagnostics;
-using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
 using System.Xml.Serialization;
 
 namespace ShiftaDebandTimer
 {
-	/// <summary>
-	/// MainWindow.xaml の相互作用ロジック
-	/// </summary>
-	public partial class MainWindow : Window
+    /// <summary>
+    /// MainWindow.xaml の相互作用ロジック
+    /// </summary>
+    public partial class MainWindow : Window
 	{
 		DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
@@ -33,8 +22,6 @@ namespace ShiftaDebandTimer
 		Stopwatch shiftaStopwatch = new Stopwatch();
 		int debandTimeSec = 0;
 		Stopwatch debandStopwatch = new Stopwatch();
-
-        int CountDownTime { get; set; } = 180;
 
         /// <summary>
         /// 設定ファイル名
@@ -46,6 +33,8 @@ namespace ShiftaDebandTimer
         /// </summary>
         private const string ConfigurationFileExt = ".xml";
 
+        private Documents Documents { get; set; }
+
         private string ConfigurationFilePath
         {
             get
@@ -56,8 +45,6 @@ namespace ShiftaDebandTimer
                 return Path.Combine(assemblyDir, ConfigurationFileName + ConfigurationFileExt);
             }
         }
-
-        private Documents Documents { get; set; }
 
         public MainWindow()
 		{
@@ -112,12 +99,12 @@ namespace ShiftaDebandTimer
 		{
 			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(Documents.ShiftaKey) && e.UpDown == KeyboardUpDown.Down)
 			{
-				shiftaTimeSec = CountDownTime;
+				shiftaTimeSec = Documents.CountDownTime;
 				shiftaStopwatch.Restart();
 			}
 			if ((int)e.KeyCode == KeyInterop.VirtualKeyFromKey(Documents.DebandKey) && e.UpDown == KeyboardUpDown.Down)
 			{
-				debandTimeSec = CountDownTime;
+				debandTimeSec = Documents.CountDownTime;
 				debandStopwatch.Restart();
 			}
 		}
@@ -134,12 +121,12 @@ namespace ShiftaDebandTimer
 
 		private void MenuItem_SettingClick(object sender, RoutedEventArgs e)
 		{
-            SettingWindow settingWindow = new SettingWindow(Documents.ShiftaKey, Documents.DebandKey, CountDownTime) { Owner = this };
+            SettingWindow settingWindow = new SettingWindow(Documents.ShiftaKey, Documents.DebandKey, Documents.CountDownTime) { Owner = this };
             if (settingWindow.ShowDialog() == true)
             {
                 Documents.ShiftaKey = settingWindow.ShiftaKey;
                 Documents.DebandKey = settingWindow.DebandKey;
-                CountDownTime = settingWindow.CountDownSec;
+                Documents.CountDownTime = settingWindow.CountDownSec;
             }
 		}
 

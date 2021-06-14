@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ShiftaDebandTimer
@@ -19,5 +16,10 @@ namespace ShiftaDebandTimer
         /// デバンドのキー
         /// </summary>
         public Key DebandKey { get; set; } = Key.D7;
+
+        /// <summary>
+        /// カウントダウンの秒数
+        /// </summary>
+        public int CountDownTime { get; set; } = 180;
     }
 }
